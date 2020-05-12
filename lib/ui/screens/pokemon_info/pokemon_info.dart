@@ -44,7 +44,7 @@ class PokemonInfo extends StatelessWidget {
 //   @override
 //   void initState() {
 //     _cardController = AnimationController(
-//         vsync: this, duration: const Duration(milliseconds: 300));
+//         vsync: this, duration: Duration(milliseconds: 300));
 //     _cardHeightController =
 //         AnimationController(vsync: this, duration: Duration(milliseconds: 220));
 

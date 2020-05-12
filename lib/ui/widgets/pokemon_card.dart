@@ -33,35 +33,35 @@ class PokemonCard extends StatelessWidget {
     final widgetTypes = pokemon.types
         .map(
           (type) => Hero(
-            tag: pokemon.name + type,
-            child: PokemonType(capitalizeFirstChar(type)),
+            tag: pokemon.number + type,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: PokemonType(capitalizeFirstChar(type)),
+            ),
           ),
         )
-        .expand((item) => [item, SizedBox(height: 6)]);
+        .toList();
 
-    return widgetTypes.take(widgetTypes.length - 1).toList();
+    return widgetTypes;
   }
 
   Widget _buildCardContent() {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Hero(
-              tag: pokemon.name,
-              child: Material(
-                color: Colors.transparent,
-                child: Text(
-                  pokemon.name,
-                  style: TextStyle(
-                    fontSize: 14,
-                    height: 0.7,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+              tag: pokemon.number + pokemon.name,
+              child: Text(
+                pokemon.name,
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 0.7,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -76,29 +76,29 @@ class PokemonCard extends StatelessWidget {
   List<Widget> _buildDecorations(double itemHeight) {
     return [
       Positioned(
-        bottom: -itemHeight * 0.136,
-        right: -itemHeight * 0.034,
+        bottom: -itemHeight * 0.13,
+        right: -itemHeight * 0.03,
         child: Image(
           image: AppImages.pokeball,
-          width: itemHeight * 0.754,
-          height: itemHeight * 0.754,
+          width: itemHeight * 0.75,
+          height: itemHeight * 0.75,
           color: Colors.white.withOpacity(0.14),
         ),
       ),
       Positioned(
-        bottom: 8,
-        right: 12,
+        bottom: -2,
+        right: -2,
         child: Hero(
           tag: pokemon.image,
           child: CachedNetworkImage(
             imageUrl: pokemon.image,
-            imageBuilder: (context, imageProvider) => Image(
-              image: imageProvider,
-              fit: BoxFit.contain,
-              width: itemHeight * 0.6,
-              height: itemHeight * 0.6,
-              alignment: Alignment.bottomRight,
-            ),
+            width: itemHeight * 0.76,
+            height: itemHeight * 0.78,
+            fit: BoxFit.contain,
+            alignment: Alignment.bottomRight,
+            progressIndicatorBuilder: (_, __, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (_, __, error) => Icon(Icons.error),
           ),
         ),
       ),
@@ -110,7 +110,7 @@ class PokemonCard extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black12,
           ),
         ),
       ),
@@ -124,13 +124,13 @@ class PokemonCard extends StatelessWidget {
         final itemHeight = constrains.maxHeight;
 
         return Container(
-          padding: EdgeInsets.all(0),
           decoration: BoxDecoration(
+            color: pokemon.color,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
                 color: pokemon.color.withOpacity(0.12),
-                blurRadius: 15,
+                blurRadius: 30,
                 offset: Offset(0, 8),
               ),
             ],

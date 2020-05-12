@@ -8,50 +8,6 @@ class _HeaderAppBar extends StatelessWidget {
   final double height;
   final bool showTitle;
 
-  Widget _buildCard() {
-    return PokeContainer(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30),
-        ),
-      ),
-      children: <Widget>[
-        SizedBox(height: 117),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28),
-          child: Text(
-            'What Pokemon\nare you looking for?',
-            style: TextStyle(
-              fontSize: 30,
-              height: 0.9,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-        ),
-        SizedBox(height: 40),
-        SearchBar(),
-        SizedBox(height: 42),
-        GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.44,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 12,
-          ),
-          padding: EdgeInsets.only(left: 28, right: 28, bottom: 58),
-          itemCount: categories.length,
-          itemBuilder: (context, index) => PokeCategoryCard(
-            categories[index],
-            onPress: () => AppNavigator.push(Routes.pokedex),
-          ),
-        )
-      ],
-    );
-  }
-
   Widget _buildTitle(visible) {
     if (!visible) {
       return null;
@@ -63,10 +19,65 @@ class _HeaderAppBar extends StatelessWidget {
     );
   }
 
+  Widget _buildCategories() {
+    return GridView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 2.44,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 12,
+      ),
+      padding: EdgeInsets.only(left: 28, right: 28, bottom: 58),
+      itemCount: categories.length,
+      itemBuilder: (context, index) => PokeCategoryCard(
+        categories[index],
+        onPress: () => AppNavigator.push(Routes.pokedex),
+      ),
+    );
+  }
+
+  Widget _buildCard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(30),
+        ),
+      ),
+      child: PokeballBackground(
+        buildChildren: (props) => [
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(height: 117),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28),
+                child: Text(
+                  'What Pokemon\nare you looking for?',
+                  style: TextStyle(
+                    fontSize: 30,
+                    height: 0.9,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 40, bottom: 42),
+                child: SearchBar(),
+              ),
+              _buildCategories(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final screenSize = MediaQuery.of(context).size;
-
     return SliverAppBar(
       expandedHeight: height,
       floating: true,

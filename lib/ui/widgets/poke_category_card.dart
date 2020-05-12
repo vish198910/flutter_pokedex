@@ -17,7 +17,7 @@ class PokeCategoryCard extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Text(
           category.name,
           style: TextStyle(

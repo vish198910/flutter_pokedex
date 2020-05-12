@@ -110,16 +110,13 @@ class _PokemonOverallInfoState extends State<PokemonOverallInfo>
           ),
           // This widget just sit here for easily calculate the new position of
           // the pokemon name when the card scroll up
-          Opacity(
-            opacity: 0.0,
-            child: Text(
-              'Bulbasaur',
-              key: _targetTextKey,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 22,
-              ),
+          Text(
+            'Bulbasaur',
+            key: _targetTextKey,
+            style: TextStyle(
+              color: Colors.transparent,
+              fontWeight: FontWeight.w900,
+              fontSize: 22,
             ),
           ),
         ],

@@ -49,10 +49,10 @@ class AppNavigator {
 
   static AppNavigator instance() => getIt<AppNavigator>();
 
-  static Future push(Routes route) =>
+  static Future push(Routes route, [Object arguments]) =>
       instance().state.pushNamed(_Paths.of(route));
 
-  static Future replaceWith(Routes route) =>
+  static Future replaceWith(Routes route, [Object arguments]) =>
       instance().state.pushReplacementNamed(_Paths.of(route));
 
   static void pop() => instance().state.pop();

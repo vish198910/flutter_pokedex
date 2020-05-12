@@ -9,10 +9,10 @@ import '../../../domain/usecases/pokemon_usecases.dart';
 class PokedexBloc extends Bloc {
   PokedexBloc(this._getPokemonsUseCase);
 
+  final GetPokemonsUseCase _getPokemonsUseCase;
+
   final _FabMenuBlocState fabMenu = _FabMenuBlocState();
   final _PokemonBlocState pokemonState = _PokemonBlocState();
-
-  final GetPokemonsUseCase _getPokemonsUseCase;
 
   @override
   void dispose() {
@@ -24,8 +24,10 @@ class PokedexBloc extends Bloc {
     try {
       pokemonState.add(LoadingState());
 
-      final pokemons =
-          await _getPokemonsUseCase(GetPokemonParams(page: 0, limit: 10));
+      final pokemons = await _getPokemonsUseCase(GetPokemonParams(
+        page: 0,
+        limit: 20,
+      ));
 
       if (pokemons.isEmpty) {
         pokemonState.add(EmptyState());
